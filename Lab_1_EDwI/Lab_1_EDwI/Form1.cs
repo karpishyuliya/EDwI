@@ -21,6 +21,7 @@ namespace Lab_1_EDwI
         public Form1()
         {
             InitializeComponent();
+            //richTextBox1.Font.SystemFontName;
         }
 
         // Get button
@@ -41,6 +42,7 @@ namespace Lab_1_EDwI
                 myResponse.Close();
 
             }
+            richTextBox1.Text += HTMLtext;
 
         }
 
@@ -56,33 +58,45 @@ namespace Lab_1_EDwI
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                richTextBox1.Text = "save Type: "+saveFileDialog1.FilterIndex.ToString()+"\n";
+              //  richTextBox1.Text = "save Type: "+saveFileDialog1.FilterIndex.ToString()+"\n";
                 if ((myStream = saveFileDialog1.OpenFile()) != null)
                 {
-                    StreamWriter writer = new StreamWriter(myStream);
+                    StreamWriter writer = new StreamWriter(myStream, Encoding.UTF8);
                     // Save without tags
                     if (saveFileDialog1.FilterIndex == 1)
                     {
                         modifyText = Regex.Replace(HTMLtext, "<[^>]+>", " ");// regular expression removing tags
-                        modifyText = Regex.Replace(modifyText, @"[^\w\s]", ""); // regular expression removing punctuation
+                        //modifyText = Regex.Replace(modifyText, @"[^\w\s]", " "); // regular expression removing punctuation
+                        //modifyText = Regex.Replace(modifyText, @"[^\w\\s+\-\+]", " "); // regular expression removing punctuation
+                        modifyText = Regex.Replace(modifyText, @"[\W]", " "); // regular expression removing punctuation
                         modifyText = modifyText.ToLower(); // replacing all uppercase to lowercase
+                        string utf8_String ;
+                        byte[] bytes = Encoding.UTF8.GetBytes(modifyText);
+                        utf8_String = Encoding.UTF8.GetString(bytes);
 
-                        richTextBox1.Text += modifyText; // write to window
+                        var result = utf8_String.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+                        foreach (string line in result)
+                        {
+                            writer.WriteLine(line); // write to file
+                        }
+                       // richTextBox1.Text += modifyText; // write to window
                     }
                     // Save as html file
                     else if (saveFileDialog1.FilterIndex == 2)
                     {
                         var result = HTMLtext.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                      //  File.WriteAllText(path, writer, Encoding.UTF8);
                         foreach (string line in result)
                         {
-                            richTextBox1.Text += line; // write to window
+                          //  richTextBox1.Text += line; // write to window
                             writer.WriteLine(line); // write to file
                         }
                     }  
                     myStream.Close();
                 }
             }
-            //richTextBox1.Text += HTMLtext;
+            
         }
 
         

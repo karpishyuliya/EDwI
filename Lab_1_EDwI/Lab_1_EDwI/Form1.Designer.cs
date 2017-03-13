@@ -42,7 +42,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(351, 24);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "https://en.wikipedia.org/wiki/List_of_HTTP_header_fields";
+            this.textBox1.Text = "https://pl.wikipedia.org/wiki/Strona_internetowa";
             // 
             // label1
             // 
@@ -78,6 +78,7 @@
             // 
             // richTextBox1
             // 
+            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.richTextBox1.Location = new System.Drawing.Point(12, 80);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(406, 253);
